@@ -15,7 +15,6 @@ import { PlayCircleIcon } from 'lucide-react';
 import Footer from './components/Footer';
 
 export default function App() {
-
   return (
     <>
       <Conatiner>
@@ -36,7 +35,7 @@ export default function App() {
             <DefaultInput
               id='meuInput'
               type='text'
-              labelText='label'
+              labelText='task'
               placeholder='Digite algo'
               defaultValue='Valor preenchido'
               disabled
