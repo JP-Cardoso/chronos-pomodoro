@@ -3,8 +3,8 @@
 
 import './styles/theme.css';
 import './styles/global.css';
-import Conatiner from './components/Container/Container';
-import Heading from './components/Heading/Heading';
+import Conatiner from './components/Container';
+import Heading from './components/Heading';
 
 export default function App() {
 
