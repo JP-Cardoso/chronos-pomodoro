@@ -3,19 +3,22 @@
 
 import './styles/theme.css';
 import './styles/global.css';
+
 import Conatiner from './components/Container';
-import Heading from './components/Heading';
+import Logo from './components/Logo';
+import Menu from './components/Menu';
 
 export default function App() {
 
   return (
     <>
       <Conatiner>
-        <Heading>LOGO</Heading>
+        {/* <Heading>LOGO</Heading> */}
+        <Logo />
       </Conatiner>
 
       <Conatiner>
-        <Heading>Menu</Heading>
+        <Menu />
       </Conatiner>
     </>
   );
