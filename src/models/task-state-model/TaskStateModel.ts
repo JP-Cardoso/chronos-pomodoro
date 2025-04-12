@@ -1,4 +1,4 @@
-import { TaskModel } from "../task-model/TaskModel"
+import { TaskModel } from "../task-model/TaskModel";
 
 export type ConfigWork = {
   workTime: number,
