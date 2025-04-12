@@ -5,7 +5,7 @@ type ContainerProps = {
   children: ReactNode
 }
 
-export default function Conatiner({
+export default function Container({
   children
 }: ContainerProps) {
 
