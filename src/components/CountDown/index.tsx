@@ -3,12 +3,11 @@ import { useTaskContext } from '../../contexts/TaskContext';
 
 export default function CountDown() {
 
-  const taskContext = useTaskContext();
-  console.log(taskContext);
+  const { state } = useTaskContext();
 
   return (
     <div className={styles.container}>
-      00:00
+      {state.formattedSecondsRemaining}
     </div>
   );
 }
