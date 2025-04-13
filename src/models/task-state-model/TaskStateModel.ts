@@ -3,7 +3,7 @@ import { TaskModel } from "../task-model/TaskModel";
 export type ConfigWork = {
   workTime: number,
   shortBreakTime: number,
-  longBreakModel: number
+  longBreakTime: number
 }
 
 export type TaskStateModel = {
