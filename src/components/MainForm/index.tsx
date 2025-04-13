@@ -7,6 +7,7 @@ import { TaskModel } from "../../models/task-model/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
+import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 
 type FormEvent = {} & React.FormEvent<HTMLFormElement>;
 
@@ -49,7 +50,7 @@ export default function MainForm() {
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining, //conferir
-        formattedSecondsRemaining: '00:00', //conferir
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining), //conferir
         tasks: [
           ...prevState.tasks,
           newTask
