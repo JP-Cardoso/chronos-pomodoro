@@ -5,8 +5,8 @@ import DefaultInput from "../DefaultInput";
 import { useRef } from "react";
 import { TaskModel } from "../../models/task-model/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
-import { getNextCycle } from "../../utils/getNextCycle";
-import { getNextCycleType } from "../../utils/getNextCycleType";
+import { getNextCycle } from "../../util/getNextCycle";
+import { getNextCycleType } from "../../util/getNextCycleType";
 import { TaskActionsEnum } from "../../contexts/TaskContext/taskActions";
 
 type FormEvent = {} & React.FormEvent<HTMLFormElement>;

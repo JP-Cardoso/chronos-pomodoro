@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import styles from './style.module.css';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
-import { getNextCycle } from '../../utils/getNextCycle';
-import { getNextCycleType } from '../../utils/getNextCycleType';
+import { getNextCycle } from '../../util/getNextCycle';
+import { getNextCycleType } from '../../util/getNextCycleType';
 
 export default function Cycles() {
 

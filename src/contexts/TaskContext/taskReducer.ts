@@ -1,7 +1,7 @@
 import { TaskModel } from "../../models/task-model/TaskModel";
 import { TaskStateModel } from "../../models/task-state-model/TaskStateModel";
-import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
-import { getNextCycle } from "../../utils/getNextCycle";
+import { formatSecondsToMinutes } from "../../util/formatSecondsToMinutes";
+import { getNextCycle } from "../../util/getNextCycle";
 import { TaskActionsEnum, TaskActionsModel } from "./taskActions";
 
 export function taskReducer(
@@ -14,7 +14,7 @@ export function taskReducer(
       const newTask = action.payload;
       const nextCycle = getNextCycle(state.currentCycle);
       const secondsRemaining = newTask.duration * 60;
-      
+
       return {
         ...state,
         activeTask: newTask,
