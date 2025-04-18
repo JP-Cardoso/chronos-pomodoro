@@ -7,13 +7,13 @@ import { TaskModel } from "../../models/task-model/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
+import { TaskActionsEnum } from "../../contexts/TaskContext/taskActions";
 
 type FormEvent = {} & React.FormEvent<HTMLFormElement>;
 
 
 export default function MainForm() {
-  const { state, setState } = useTaskContext()
+  const { state, dispatch } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null);
 
   //ciclos
@@ -42,39 +42,11 @@ export default function MainForm() {
       type: nextCycleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
-
-    setState(prevState => {
-      return {
-        ...prevState,
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining, //conferir
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining), //conferir
-        tasks: [
-          ...prevState.tasks,
-          newTask
-        ],
-        config: { ...prevState.config }
-      }
-    })
+    dispatch({ type: TaskActionsEnum.START_TASK, payload: newTask });
   }
 
   function handleInterruptTask() {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: "00:00",
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return { ...task, interruptDate: Date.now() };
-          }
-          return task;
-        })
-      }
-    })
+    dispatch({ type: TaskActionsEnum.INTERRUPT_TASK })
   }
 
   return (
