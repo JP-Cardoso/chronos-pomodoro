@@ -12,7 +12,6 @@ import Tips from "../TIps";
 
 type FormEvent = {} & React.FormEvent<HTMLFormElement>;
 
-
 export default function MainForm() {
   const { state, dispatch } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null);
@@ -20,9 +19,6 @@ export default function MainForm() {
   //ciclos
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
-
-  //tips
-
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
