@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import styles from './styles.module.css';
 
 export default function Footer() {
@@ -6,8 +7,8 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <a href="#">Entenda como functiona a técninca pomodoro</a>
-      <a href="#">Chronos Pomodoro &copy; {year} - Feito com 💚 </a>
+      <Link to="/about-pomodoro/">Entenda como functiona a técninca pomodoro</Link>
+      <Link to="/">Chronos Pomodoro &copy; {year} - Feito com 💚 </Link>
     </footer>
   );
 }

@@ -10,6 +10,7 @@ import {
   SunIcon
 } from 'lucide-react';
 import { getItemLocalStorage, setItemLocalStorage } from '../../util/local-storage';
+import { Link } from 'react-router';
 
 type AvailableTheme = 'dark' | 'light';
 
@@ -44,14 +45,14 @@ export default function Menu() {
 
   return (
     <nav className={styles.menu}>
-      <a
-        href="#"
+      <Link
+        to="/"
         className={styles.menuLink}
         aria-label={SensitiveEnum.SENSITIVE_HOME}
         title={SensitiveEnum.SENSITIVE_HOME}
       >
         <HouseIcon />
-      </a>
+      </Link>
 
       <a
         href="#"
