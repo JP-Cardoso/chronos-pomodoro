@@ -1,5 +1,5 @@
-import { Link } from 'react-router';
 import styles from './styles.module.css';
+import RouterLink from '../RouterLink';
 
 export default function Footer() {
 
@@ -7,8 +7,12 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <Link to="/about-pomodoro/">Entenda como functiona a técninca pomodoro</Link>
-      <Link to="/">Chronos Pomodoro &copy; {year} - Feito com 💚 </Link>
-    </footer>
+      <RouterLink href="/about-pomodoro/">
+        Entenda como functiona a técninca pomodoro
+      </RouterLink>
+      <RouterLink href="/">
+        Chronos Pomodoro &copy; {year} - Feito com 💚 
+      </RouterLink>
+    </footer >
   );
 }
