@@ -1,4 +1,5 @@
 import styles from './styles.module.css';
+import RouterLink from '../RouterLink';
 
 export default function Footer() {
 
@@ -6,8 +7,12 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <a href="#">Entenda como functiona a técninca pomodoro</a>
-      <a href="#">Chronos Pomodoro &copy; {year} - Feito com 💚 </a>
-    </footer>
+      <RouterLink href="/about-pomodoro/">
+        Entenda como functiona a técninca pomodoro
+      </RouterLink>
+      <RouterLink href="/">
+        Chronos Pomodoro &copy; {year} - Feito com 💚 
+      </RouterLink>
+    </footer >
   );
 }

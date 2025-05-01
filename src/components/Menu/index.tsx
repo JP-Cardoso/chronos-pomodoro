@@ -10,6 +10,7 @@ import {
   SunIcon
 } from 'lucide-react';
 import { getItemLocalStorage, setItemLocalStorage } from '../../util/local-storage';
+import RouterLink from '../RouterLink';
 
 type AvailableTheme = 'dark' | 'light';
 
@@ -44,34 +45,34 @@ export default function Menu() {
 
   return (
     <nav className={styles.menu}>
-      <a
-        href="#"
+      <RouterLink
+        href="/"
         className={styles.menuLink}
         aria-label={SensitiveEnum.SENSITIVE_HOME}
         title={SensitiveEnum.SENSITIVE_HOME}
       >
         <HouseIcon />
-      </a>
+      </RouterLink>
 
-      <a
-        href="#"
+      <RouterLink
+        href="/history/"
         className={styles.menuLink}
         aria-label={SensitiveEnum.SENSITIVE_HISTORY}
         title={SensitiveEnum.SENSITIVE_HISTORY}
       >
         <HistoryIcon />
-      </a>
+      </RouterLink>
 
-      <a
-        href="#"
+      <RouterLink
+        href="/settings"
         className={styles.menuLink}
         aria-label={SensitiveEnum.SENSITIVE_SETTINGS}
         title={SensitiveEnum.SENSITIVE_SETTINGS}
       >
         <SettingsIcon />
-      </a>
+      </RouterLink>
 
-      <a
+      <RouterLink
         href="#"
         className={styles.menuLink}
         aria-label={SensitiveEnum.SENSITIVE_THEME}
@@ -79,7 +80,7 @@ export default function Menu() {
         onClick={(e) => handleThmeChange(e)}
       >
         {nextThemeIcon[theme] ?? <SunIcon />}
-      </a>
+      </RouterLink>
     </nav>
   );
 }

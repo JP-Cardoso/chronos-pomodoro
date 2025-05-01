@@ -16,6 +16,7 @@ type FormEvent = {} & React.FormEvent<HTMLFormElement>;
 export default function MainForm() {
   const { state, dispatch } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastNameTask = state.tasks.at(-1)?.name || "";
 
   //ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -67,9 +68,9 @@ export default function MainForm() {
             type='text'
             labelText='task'
             placeholder='Digite algo'
-            // defaultValue='Valor preenchido'
             ref={taskNameInput}
             disabled={!!state.activeTask}
+            defaultValue={lastNameTask}
           />
         </div>
 
