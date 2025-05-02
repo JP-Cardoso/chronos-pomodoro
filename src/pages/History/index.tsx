@@ -6,6 +6,7 @@ import DefaultButton from "../../components/DefaultButton";
 import Heading from "../../components/Heading";
 import MainTemplete from "../../template/MainTemplete";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+import { formatDate } from "../../util/date/formatDate";
 
 export default function HistoryPage() {
 
@@ -47,7 +48,7 @@ export default function HistoryPage() {
                   <tr key={task.id}>
                     <td>{task.name}</td>
                     <td>{task.duration}</td>
-                    <td>{new Date(task.startDate).toISOString()}</td>
+                    <td>{formatDate(task.startDate)}</td>
                     <td>{task.interruptDate}</td>
                     <td>{task.type}</td>
                   </tr>
