@@ -8,10 +8,52 @@ import MainTemplete from "../../template/MainTemplete";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { formatDate } from "../../util/date/formatDate";
 import { getTaskStatus, taskTypeDictionary } from "../../util/tasks/getTaskStatus";
+import { sortTasks, SortTasksOptions } from "../../util/tasks/sortedTasks";
+import { useEffect, useState } from "react";
+import { TaskActionsEnum } from "../../contexts/TaskContext/taskActions";
 
 export default function HistoryPage() {
 
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
+  const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(() => {
+    return {
+      tasks: sortTasks({ tasks: state.tasks }),
+      field: "startDate",
+      direction: "desc",
+    }
+  })
+
+  function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
+
+    const newDiraction = sortTasksOptions.direction === "desc" ? "asc" : "desc";
+
+    setSortTasksOptions({
+      tasks: sortTasks({
+        direction: newDiraction,
+        tasks: sortTasksOptions.tasks,
+        field
+      }),
+      direction: newDiraction,
+      field,
+    })
+  }
+
+  function handleResetHistory() {
+    if (!confirm("Tem certeza")) return;
+
+    dispatch({ type: TaskActionsEnum.RESET_STATE });
+  }
+
+  useEffect(() => {
+    setSortTasksOptions(prevState => ({
+      ...prevState,
+      tasks: sortTasks({
+        tasks: state.tasks,
+        direction: prevState.direction,
+        field: prevState.field,
+      }),
+    }));
+  }, [state.tasks]);
 
   return (
     <MainTemplete>
@@ -25,6 +67,7 @@ export default function HistoryPage() {
               color="red"
               aria-label="Apagar todo o histórico"
               title="Apagar histórico"
+              onClick={() => handleResetHistory()}
             />
           </span>
         </Heading>
@@ -35,20 +78,20 @@ export default function HistoryPage() {
           <table>
             <thead>
               <tr>
-                <th>Tarefa</th>
-                <th>Duração</th>
-                <th>Data</th>
+                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'name' })}>Tarefa</th>
+                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'duration' })}>Duração</th>
+                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'startDate' })}>Data</th>
                 <th>Status</th>
                 <th>Tipo</th>
               </tr>
             </thead>
 
             <tbody>
-              {state.tasks?.map((task) => {
+              {sortTasksOptions?.tasks?.map((task) => {
                 return (
                   <tr key={task.id}>
                     <td>{task.name}</td>
-                    <td>{task.duration}</td>
+                    <td>{task.duration}min</td>
                     <td>{formatDate(task.startDate)}</td>
                     <td>{getTaskStatus(task, state.activeTask)}</td>
                     <td>{taskTypeDictionary(task.type)}</td>
