@@ -7,6 +7,7 @@ import Heading from "../../components/Heading";
 import MainTemplete from "../../template/MainTemplete";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { formatDate } from "../../util/date/formatDate";
+import { getTaskStatus, taskTypeDictionary } from "../../util/tasks/getTaskStatus";
 
 export default function HistoryPage() {
 
@@ -49,8 +50,8 @@ export default function HistoryPage() {
                     <td>{task.name}</td>
                     <td>{task.duration}</td>
                     <td>{formatDate(task.startDate)}</td>
-                    <td>{task.interruptDate}</td>
-                    <td>{task.type}</td>
+                    <td>{getTaskStatus(task, state.activeTask)}</td>
+                    <td>{taskTypeDictionary(task.type)}</td>
                   </tr>
                 )
               })}
