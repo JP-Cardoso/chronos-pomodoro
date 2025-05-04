@@ -66,7 +66,11 @@ export default function HistoryPage() {
     dispatch({ type: TaskActionsEnum.RESET_STATE });
 
     setConfirmHistory(false);
-  }, [confirmClearHistory, dispatch])
+  }, [confirmClearHistory, dispatch]);
+
+  useEffect(() => {
+    showMessage.dismiss();
+  }, [])
 
   return (
     <MainTemplete>
