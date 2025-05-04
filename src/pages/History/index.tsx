@@ -11,17 +11,22 @@ import { getTaskStatus, taskTypeDictionary } from "../../util/tasks/getTaskStatu
 import { sortTasks, SortTasksOptions } from "../../util/tasks/sortedTasks";
 import { useEffect, useState } from "react";
 import { TaskActionsEnum } from "../../contexts/TaskContext/taskActions";
+import { showMessage } from "../../_adapters/Toastify/showMessage";
 
 export default function HistoryPage() {
 
   const { state, dispatch } = useTaskContext();
+  const [confirmClearHistory, setConfirmHistory] = useState<boolean>(false);
+
   const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(() => {
     return {
       tasks: sortTasks({ tasks: state.tasks }),
       field: "startDate",
       direction: "desc",
     }
-  })
+  });
+
+  const hasTasks = state.tasks.length > 0;
 
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
 
@@ -39,9 +44,10 @@ export default function HistoryPage() {
   }
 
   function handleResetHistory() {
-    if (!confirm("Tem certeza")) return;
-
-    dispatch({ type: TaskActionsEnum.RESET_STATE });
+    showMessage.dismiss();
+    showMessage.confirm("Tem certeza?", (confirmation) => {
+      setConfirmHistory(confirmation)
+    });
   }
 
   useEffect(() => {
@@ -54,6 +60,13 @@ export default function HistoryPage() {
       }),
     }));
   }, [state.tasks]);
+
+  useEffect(() => {
+    if (!confirmClearHistory) return;
+    dispatch({ type: TaskActionsEnum.RESET_STATE });
+
+    setConfirmHistory(false);
+  }, [confirmClearHistory, dispatch])
 
   return (
     <MainTemplete>
@@ -74,33 +87,40 @@ export default function HistoryPage() {
       </Container>
 
       <Container>
-        <div className={styles.responsiveTable}>
-          <table>
-            <thead>
-              <tr>
-                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'name' })}>Tarefa</th>
-                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'duration' })}>Duração</th>
-                <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'startDate' })}>Data</th>
-                <th>Status</th>
-                <th>Tipo</th>
-              </tr>
-            </thead>
+        {hasTasks && (
+          <div className={styles.responsiveTable}>
+            <table>
+              <thead>
+                <tr>
+                  <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'name' })}>Tarefa</th>
+                  <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'duration' })}>Duração</th>
+                  <th className={styles.thSort} onClick={() => handleSortTasks({ field: 'startDate' })}>Data</th>
+                  <th>Status</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {sortTasksOptions?.tasks?.map((task) => {
-                return (
-                  <tr key={task.id}>
-                    <td>{task.name}</td>
-                    <td>{task.duration}min</td>
-                    <td>{formatDate(task.startDate)}</td>
-                    <td>{getTaskStatus(task, state.activeTask)}</td>
-                    <td>{taskTypeDictionary(task.type)}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+              <tbody>
+                {sortTasksOptions?.tasks?.map((task) => {
+                  return (
+                    <tr key={task.id}>
+                      <td>{task.name}</td>
+                      <td>{task.duration}min</td>
+                      <td>{formatDate(task.startDate)}</td>
+                      <td>{getTaskStatus(task, state.activeTask)}</td>
+                      <td>{taskTypeDictionary(task.type)}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {!hasTasks && (
+          <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+            Ainda não existem tarefas criadas.
+          </p>
+        )}
       </Container>
     </MainTemplete>
   )
