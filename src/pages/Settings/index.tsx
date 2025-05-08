@@ -4,12 +4,16 @@ import DefaultButton from "../../components/DefaultButton";
 import DefaultInput from "../../components/DefaultInput";
 import Heading from "../../components/Heading";
 import MainTemplete from "../../template/MainTemplete";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { showMessage } from "../../_adapters/Toastify/showMessage";
 import { TaskActionsEnum } from "../../contexts/TaskContext/taskActions";
 
 export default function SettingsPage() {
+
+  useEffect(() => {
+    document.title = "Configurações - Chronos Pomodoro";
+  }, [])
 
   const { state, dispatch } = useTaskContext();
 
@@ -58,9 +62,9 @@ export default function SettingsPage() {
       });
       return;
     }
-    dispatch({ 
-      type: TaskActionsEnum.CHANGE_SETTINGS, 
-      payload: { workTime, shortBreakTime, longBreakTime } ,
+    dispatch({
+      type: TaskActionsEnum.CHANGE_SETTINGS,
+      payload: { workTime, shortBreakTime, longBreakTime },
     });
 
     showMessage.success("Configurações salvas")
