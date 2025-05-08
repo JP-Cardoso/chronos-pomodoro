@@ -15,6 +15,10 @@ import { showMessage } from "../../_adapters/Toastify/showMessage";
 
 export default function HistoryPage() {
 
+  useEffect(() => {
+    document.title = "Histórico - Chronos Pomodoro";
+  }, [])
+
   const { state, dispatch } = useTaskContext();
   const [confirmClearHistory, setConfirmHistory] = useState<boolean>(false);
 
